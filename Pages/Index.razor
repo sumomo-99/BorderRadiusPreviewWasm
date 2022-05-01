@@ -1,0 +1,82 @@
+﻿@page "/"
+
+<PageTitle>Border Rasius Preview</PageTitle>
+
+<MudContainer>
+    <MudText class="mb-6">
+        スタイル属性のborder-radiusとborderの値を動的に変化させて、見た目を確認するためのサービスです。
+    </MudText>
+
+    <MudStack>
+        <MudNumericField
+            @bind-Value="Width"
+            Label="Width"
+            Min="0"
+            Max="1000"
+            Immediate="true"
+            Adornment="Adornment.End"
+            AdornmentText="px"
+        />
+        <MudNumericField
+            @bind-Value="Height"
+            Label="Height"
+            Min="0"
+            Max="1000"
+            Immediate="true"
+            Adornment="Adornment.End"
+            AdornmentText="px"
+        />
+        <MudNumericField
+            @bind-Value="BorderRadius"
+            Label="Border Radius"
+            Min="0"
+            Max="100"
+            Immediate="true"
+            Adornment="Adornment.End"
+            AdornmentText="px"
+        />
+        <MudNumericField
+            @bind-Value="BorderWidth"
+            Label="Border Width"
+            Min="0"
+            Max="100"
+            Immediate="true"
+            Adornment="Adornment.End"
+            AdornmentText="px"
+        />
+        <MudSelect
+            @bind-Value="@enumValue"
+            Label="Border Style">
+            @foreach (BorderStyle item in Enum.GetValues(typeof(BorderStyle)))
+            {
+                <MudSelectItem Value="@item">@item</MudSelectItem>
+            }
+        </MudSelect>
+        <div style="
+            width: @(Width)px;
+            height: @(Height)px;
+            border-radius: @(BorderRadius)px;
+            border-width: @(BorderWidth)px;
+            border-style: @enumValue;">
+        </div>
+    </MudStack>
+</MudContainer>
+
+@code {
+    private int Width { get; set; } = 100;
+    private int Height { get; set; } = 100;
+    private int BorderRadius { get; set; } = 0;
+    private int BorderWidth { get; set; } = 1;
+    private BorderStyle enumValue { get; set; } = BorderStyle.Solid;
+    private enum BorderStyle
+    {
+        Dotted,
+        Dashed,
+        Solid,
+        Double,
+        Groove,
+        Ridge,
+        Inset,
+        Outset
+    }
+}
